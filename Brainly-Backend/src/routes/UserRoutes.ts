@@ -31,7 +31,7 @@ UserRouter.post('/login',async (req,res)=>{
 
     if(!user){
 
-        return res.json({
+        return res.status(401).json({
             message:"Incorrect Credentials"
         })
     }
