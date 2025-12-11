@@ -14,7 +14,7 @@ const ContentSchema = new Schema({
 });
 
 const LinkSchema = new Schema({
-    hash: String,
+    hash: {type:String,required:true,unique:true},
     userid: {type: mongoose.Types.ObjectId, ref: 'User', required: true}
 });
 
