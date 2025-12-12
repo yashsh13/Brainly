@@ -49,7 +49,7 @@ LinkRouter.post('/',UserMiddleware,async (req,res)=>{
 
 })
 
-LinkRouter.get('/:hash',UserMiddleware,async (req,res)=>{
+LinkRouter.get('/:hash',async (req,res)=>{
 
     const hash = req.params.hash;
 
