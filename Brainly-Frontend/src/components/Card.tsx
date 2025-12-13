@@ -1,5 +1,7 @@
 import ShareIcon from "../icons/ShareIcon";
 import TrashIcon from "../icons/TrashIcon";
+import TwitterIcon from "../icons/TwitterIcon";
+import YoutubeIcon from "../icons/YoutubeIcon";
 
 interface CardProps{
     title: string,
@@ -10,13 +12,14 @@ interface CardProps{
 export default function Card({ title, type, link}: CardProps){
 
     return(
-        <div className="border-2 border-[#f1f3f5] w-xs h-auto px-4 py-2 rounded-md">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 font-medium">
-                    <ShareIcon />
-                    {title}
+        <div className="bg-white border-2 border-[#f1f3f5] w-sm h-96 overflow-hidden px-4 py-2 my-4 rounded-xl">
+            <div className="flex justify-between items-center p-2">
+                <div className="flex items-center gap-3 font-medium">
+                    {(type=="Youtube")&&<YoutubeIcon />}
+                    {(type=="Twitter")&&<TwitterIcon />}
+                    <p className="text-xl">{title}</p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2 text-[#9fa1a3]">
                     <ShareIcon />
                     <TrashIcon />
                 </div>

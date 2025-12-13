@@ -11,14 +11,16 @@ const variantStyles = {
     Secondary: 'bg-[#dee7ff] text-[#5e56c8]'
 };
 
-const defaultStyles = "px-4 py-1 rounded-md flex items-center gap-2 cursor-pointer";
+const defaultStyles = "px-5 py-2 text-xl rounded-md flex items-center gap-2 cursor-pointer";
 
 
 export default function Button({ variant, text, startIcon}: ButtonProps){
     return(
-        <button className={`${variantStyles[variant]} ${defaultStyles}`} >
-            {startIcon}
-            {text}
-        </button>
+        <div>
+            <button className={`${variantStyles[variant]} ${defaultStyles}`} >
+                {startIcon}
+                {text}
+            </button>
+        </div>
     )
 }
