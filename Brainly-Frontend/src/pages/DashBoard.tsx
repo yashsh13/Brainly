@@ -8,7 +8,7 @@ export default function DashBoard(){
     return(
         <div className="flex">
             <SideBar />
-            <div className="w-[80%] bg-[#f9fbfc]">
+            <div className="ml-[20%] w-[80%] bg-[#f9fbfc]">
                 <div className="flex justify-between items-center p-10">
                     <p className="text-3xl font-bold">All Notes</p>
                     <div className="flex gap-4">
