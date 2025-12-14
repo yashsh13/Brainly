@@ -3,7 +3,9 @@ import type { ReactElement } from "react";
 interface ButtonProps{
     variant : 'Primary' | 'Secondary',
     text : string,
-    startIcon: ReactElement
+    startIcon?: ReactElement,
+    isFullWidth?:boolean,
+    onClickHandler?:()=>void
 };
 
 const variantStyles = {
@@ -11,13 +13,13 @@ const variantStyles = {
     Secondary: 'bg-[#dee7ff] text-[#5e56c8]'
 };
 
-const defaultStyles = "px-5 py-2 text-xl rounded-md flex items-center gap-2 cursor-pointer";
+const defaultStyles = "px-5 py-2 text-xl rounded-md flex justify-center items-center gap-2 cursor-pointer";
 
 
-export default function Button({ variant, text, startIcon}: ButtonProps){
+export default function Button({ variant, text, startIcon, isFullWidth, onClickHandler}: ButtonProps){
     return(
         <div>
-            <button className={`${variantStyles[variant]} ${defaultStyles}`} >
+            <button className={`${variantStyles[variant]} ${defaultStyles}`+(isFullWidth?' w-full':'')} onClick={onClickHandler} >
                 {startIcon}
                 {text}
             </button>
