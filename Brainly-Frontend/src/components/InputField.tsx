@@ -1,5 +1,10 @@
-export default function InputField({placeholder}: {placeholder: string}){
+interface InputFieldProps {
+    placeholderValue: string,
+    reference?: any
+}
+
+export default function InputField({placeholderValue, reference}: InputFieldProps){
     return (
-        <input type="text" className="w-md text-xl p-2 border-2 border-black rounded-md" placeholder={placeholder} />
+        <input ref={reference} type="text" className="w-md text-xl p-2 border-2 border-black rounded-md" placeholder={placeholderValue} />
     )
 }
