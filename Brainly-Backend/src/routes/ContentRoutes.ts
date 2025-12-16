@@ -29,14 +29,17 @@ ContentRouter.get('/',UserMiddleware,async (req,res)=>{
 
     //@ts-ignore
     const userId = req.userId;
-
+    //@ts-ignore
+    const username = req.username;
+    
     const content = await ContentModel.find({
         userid:userId
     }).populate('userid','username');
 
     return res.json({
         message:"Fetched all your content",
-        content:content
+        content:content,
+        username:username
     })
 })
 

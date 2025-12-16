@@ -10,8 +10,11 @@ const UserMiddleware = async (req: Request, res: Response, next: NextFunction) =
     const decoded = await jwt.verify(token as string,JWT_PASSWORD);
 
     if(decoded){
+        
         //@ts-ignore
         req.userId = (decoded as JwtPayload).id;
+        //@ts-ignore
+        req.username = (decoded as JwtPayload).username;
         next();
         return
     }

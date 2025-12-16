@@ -4,6 +4,7 @@ import { BACKEND_URL } from "../config";
 
 export default function useContent(){
     const [allContent,setAllContent] = useState([]);
+    const [username,setUsername] = useState('');
 
     function refresh() {
         
@@ -11,8 +12,9 @@ export default function useContent(){
                 headers:{'authorization':localStorage.getItem('token')}
             })
             .then(function(response){
-                setAllContent(response.data.content)
-                console.log(response.data.message)
+                setAllContent(response.data.content);
+                setUsername(response.data.username);
+                console.log(response.data.message);
             })
     }
 
@@ -21,5 +23,5 @@ export default function useContent(){
         }    
         ,[])
 
-    return {allContent,refresh}
+    return {allContent,username,refresh}
 }

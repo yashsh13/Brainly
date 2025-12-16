@@ -1,6 +1,6 @@
 import InputField from "../components/InputField";
 import Button from "../components/Button";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -16,6 +16,12 @@ export default function Auth({ title }: AuthProps){
     //@ts-ignore
     const passwordRef = useRef<HTMLInputElement>();
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(localStorage.getItem("token")){
+            navigate('/dashboard');
+        }
+    },[])
 
     async function onClickSignup(){
         const username = usernameRef.current.value;

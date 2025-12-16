@@ -1,5 +1,6 @@
 import CrossIcon from "../icons/CrossIcon";
 import InputField from "./InputField";
+import SelectField from "./SelectField";
 import Button from "./Button";
 import { useRef } from "react";
 import axios from "axios";
@@ -49,7 +50,7 @@ export default function AddContentForm({ isVisible, onClose, refresh }: AddConte
                     </div>
                     <div className="flex flex-col gap-5 mt-8">
                         <InputField placeholderValue="Title" reference={titleRef}/>
-                        <InputField placeholderValue="Type" reference={typeRef}/>
+                        <SelectField options={["Youtube","Twitter"]} reference={typeRef}/>
                         <InputField placeholderValue="Link" reference={linkRef}/>
                         <Button variant={"Primary"} text={"Submit"} isFullWidth={true} onClickHandler={onClickHandler}/>
                     </div>

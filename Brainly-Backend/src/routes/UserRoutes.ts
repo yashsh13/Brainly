@@ -36,7 +36,7 @@ UserRouter.post('/login',async (req,res)=>{
         })
     }
 
-    const token = await jwt.sign({id:user._id},JWT_PASSWORD);
+    const token = await jwt.sign({id:user._id,username:user.username},JWT_PASSWORD);
 
     return res.json({
         message: "Logged in successfully",
