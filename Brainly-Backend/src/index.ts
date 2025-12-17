@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use('/api/v1/user',UserRouter);
 app.use('/api/v1/content',ContentRouter);
-app.use('/api/v1/share',LinkRouter);
+app.use('/api/v1/brain',LinkRouter);
 
 async function main(){
     await mongoose.connect(MONGODB_URL);
