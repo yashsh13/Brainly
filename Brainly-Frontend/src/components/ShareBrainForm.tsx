@@ -2,7 +2,7 @@ import CrossIcon from "../icons/CrossIcon";
 import Button from "./Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL, FRONTEND_URL } from "../config";
 
 interface ShareBrainFormProps {
     isVisible: boolean,
@@ -37,7 +37,7 @@ export default function ShareBrainForm({ isVisible, onClose }: ShareBrainFormPro
         .then(function(response){
             if(response.data.share){
                 setToggle(true);
-                setLink(`${BACKEND_URL}/brain/share/${response.data.hash}`);
+                setLink(`${FRONTEND_URL}/brain/share/${response.data.hash}`);
             }
             console.log(response.data.message);
         })

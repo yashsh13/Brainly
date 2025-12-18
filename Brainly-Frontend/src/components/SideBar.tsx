@@ -5,7 +5,12 @@ import SideBarElement from "./SideBarElement";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
-export default function SideBar({username}: {username:string}){
+interface SideBarProps{
+    username: string,
+    share: boolean
+}
+
+export default function SideBar({username, share}: SideBarProps){
     const navigate = useNavigate();
 
     function LogOut(){
@@ -24,8 +29,9 @@ export default function SideBar({username}: {username:string}){
                 <SideBarElement text={"Videos"} frontIcon={<YoutubeIcon />}/>
             </div>
             <div className="flex flex-col justify-between items-center w-full h-1/8 absolute bottom-10">
-                <p className="text-2xl text-[#323541]">Welcome {username}</p>
-                <Button variant={"Secondary"} text={"Log Out"} onClickHandler={LogOut}/> 
+                {share?(<p className="text-2xl text-[#323541]">{username}'s content</p>):
+                (<><p className="text-2xl text-[#323541]">Welcome {username}</p>
+                <Button variant={"Secondary"} text={"Log Out"} onClickHandler={LogOut}/></>)} 
             </div>
         </div>
     )

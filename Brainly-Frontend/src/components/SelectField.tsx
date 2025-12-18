@@ -1,5 +1,5 @@
 interface SelectFieldProps{
-    options: [string,string],
+    options: string[],
     reference?: any
 }
 

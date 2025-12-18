@@ -8,11 +8,12 @@ import Card from "../components/Card";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useContent from "../hooks/useContent";
+import { BACKEND_URL } from "../config";
 
 export default function DashBoard(){
     const [openAddContent,setOpenAddContent] = useState(false);
     const [openShareBrain,setOpenShareBrain] = useState(false);
-    const {allContent,username,refresh} = useContent();
+    const {allContent,username,refresh} = useContent(`${BACKEND_URL}/api/v1/content`);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -26,7 +27,7 @@ export default function DashBoard(){
             <AddContentForm isVisible={openAddContent} onClose={()=>setOpenAddContent(false)} refresh={refresh}/>
             <ShareBrainForm isVisible={openShareBrain} onClose={()=>setOpenShareBrain(false)} />
             <div className={"flex"}>
-                <SideBar username={username}/>
+                <SideBar username={username} share={false}/>
                 <div className={"ml-[20%] w-[80%] bg-[#f9fbfc]" + ((openAddContent||openShareBrain)?" fixed":"")}>
                     <div className="flex justify-between items-center p-10">
                         <p className="text-3xl font-bold">All Notes</p>

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../config";
 
-export default function useContent(){
+
+export default function useContent(url: string){
     const [allContent,setAllContent] = useState([]);
     const [username,setUsername] = useState('');
 
     function refresh() {
         
-        axios.get(`${BACKEND_URL}/api/v1/content`,{
+        axios.get(url,{
                 headers:{'authorization':localStorage.getItem('token')}
             })
             .then(function(response){
