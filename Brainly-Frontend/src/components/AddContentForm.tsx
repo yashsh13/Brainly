@@ -9,7 +9,7 @@ import { BACKEND_URL } from "../config";
 interface AddContentFormProps {
     isVisible: boolean,
     onClose: ()=>void,
-    refresh: ()=>void
+    refresh?: ()=>void
 }
 
 export default function AddContentForm({ isVisible, onClose, refresh }: AddContentFormProps){

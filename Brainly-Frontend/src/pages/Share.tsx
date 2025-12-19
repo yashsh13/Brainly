@@ -1,5 +1,4 @@
-import SideBar from "../components/SideBar";
-import Card from "../components/Card";
+import DashBoardBody from "../components/DashBoardBody";
 import useContent from "../hooks/useContent";
 import { useParams } from "react-router";
 import { BACKEND_URL } from "../config";
@@ -11,22 +10,7 @@ export default function Share(){
 
     return(
         <>
-            <div className={"flex"}>
-                <SideBar username={username} share={true}/>
-                <div className={"ml-[20%] w-[80%] bg-[#f9fbfc]"}>
-                    <div className="flex justify-between items-center p-10">
-                        <p className="text-3xl font-bold">All Notes</p>
-                    </div>
-                    <div className="flex flex-wrap justify-evenly">
-                        {allContent.map(({_id,title,type,link})=><Card
-                        key={_id}
-                        title={title} 
-                        type={type} 
-                        link={link} 
-                        />)}
-                    </div>
-                </div>
-            </div>
+            <DashBoardBody username={username} allContent={allContent} share={true}/>
         </>
     )
 }
