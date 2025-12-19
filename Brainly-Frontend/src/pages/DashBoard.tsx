@@ -7,8 +7,9 @@ import useContent from "../hooks/useContent";
 import { BACKEND_URL } from "../config";
 
 export default function DashBoard(){
-    const [openAddContent,setOpenAddContent] = useState(false);
-    const [openShareBrain,setOpenShareBrain] = useState(false);
+    
+    //@ts-ignore
+    const {openAddContent, setOpenAddContent, openShareBrain, setOpenShareBrain} = useContext(DashBoardBodyContext);
     const {allContent,username,refresh} = useContent(`${BACKEND_URL}/api/v1/content`);
     const navigate = useNavigate();
 
