@@ -1,7 +1,7 @@
 import AddContentForm from "../components/AddContentForm";
 import ShareBrainForm from "../components/ShareBrainForm";
 import DashBoardBody from "../components/DashBoardBody";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useContent from "../hooks/useContent";
 import { BACKEND_URL } from "../config";
