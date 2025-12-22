@@ -1,108 +1,136 @@
 import { Router } from "express";
 import UserMiddleware from "../UserMiddleware.js";
 import { UserModel, ContentModel, LinkModel } from "../db.js";
+import { z } from "zod";
 import generateHash from "../utils.js";
 
 const LinkRouter = Router();
 
 LinkRouter.post('/share',UserMiddleware,async (req,res)=>{
+    try{
+        const ShareToggleSchema = z.boolean();
+        const validate = ShareToggleSchema.safeParse(req.body.share);
 
-    const shareToggle = req.body.share;
-    //@ts-ignore
-    const userId = req.userId;
+        if(!validate.success){
+            return res.json({
+                message: "Zod validation error",
+                error: validate.error
+            })
+        }
 
-    if(shareToggle){
+        const shareToggle = validate.data;
+        //@ts-ignore
+        const userId = req.userId;
+
+        if(shareToggle){
+            const link = await LinkModel.findOne({
+                userid:userId
+            });
+
+            if(link){
+                return res.json({
+                    message:"Your share hash",
+                    hash:link.hash,
+                    share:true
+                })
+            }
+
+            const hash = generateHash(7);
+
+            await LinkModel.create({
+                userid:userId,
+                hash:hash
+            })
+
+            return res.json({
+                message:"Your share hash is created",
+                hash:hash,
+                share:true
+            })
+        } 
+
+        await LinkModel.deleteOne({
+            userid:userId
+        })
+
+        return res.json({
+            message:"Your share hash is deleted",
+            share:false
+        })
+
+    } catch (error){
+        return res.json({
+            message: "Toggle share hash failed"
+        })
+    }
+})
+
+LinkRouter.get('/share',UserMiddleware,async (req,res)=>{
+    try{
+        //@ts-ignore
+        const userId = req.userId
 
         const link = await LinkModel.findOne({
             userid:userId
-        });
+        })
 
         if(link){
-
             return res.json({
-                message:"Your share hash",
+                message:"Link Exists",
                 hash:link.hash,
                 share:true
             })
         }
 
-        const hash = generateHash(7);
-
-        await LinkModel.create({
-            userid:userId,
-            hash:hash
+        return res.json({
+            message:"Link does not exist",
+            share:false
         })
 
+    } catch(error){
         return res.json({
-            message:"Your share hash is created",
-            hash:hash,
-            share:true
-        })
-
-    } 
-
-    await LinkModel.deleteOne({
-        userid:userId
-    })
-
-    return res.json({
-        message:"Your share hash is deleted",
-        share:false
-    })
-
-})
-
-LinkRouter.get('/share',UserMiddleware,async (req,res)=>{
-    //@ts-ignore
-    const userId = req.userId
-
-    const link = await LinkModel.findOne({
-        userid:userId
-    })
-
-    if(link){
-        return res.json({
-            message:"Link Exists",
-            hash:link.hash,
-            share:true
+            message: "Checking hash status error",
+            error: error
         })
     }
-
-    return res.json({
-        message:"Link does not exist",
-        share:false
-    })
 })
 
 LinkRouter.get('/share/:hash',async (req,res)=>{
+    try{
+        const hash = req.params.hash;
 
-    const hash = req.params.hash;
-
-    const link = await LinkModel.findOne({
-        hash:(hash as string)
-    });
-
-    if(link){
-        const userid = link?.userid;
-
-        const user = await UserModel.findOne({
-            _id:userid
+        const link = await LinkModel.findOne({
+            hash:(hash as string)
         });
 
-        const content = await ContentModel.find({
-            userid:userid
-        })
+        if(link){
+            const userid = link?.userid;
+
+            const user = await UserModel.findOne({
+                _id:userid
+            });
+
+            const content = await ContentModel.find({
+                userid:userid
+            })
+
+            return res.json({
+                message:"Succesfully got shared content",
+                username: user?.username,
+                content: content
+            });
+        }
 
         return res.json({
-            message:"Succesfully got shared content",
-            username: user?.username,
-            content: content
-        });
+            message:"Invalid Share Link"
+        })
+        
+    } catch(error) {
+        return res.json({
+            message: "Fetching Shared Content Error",
+            error: error
+        })
     }
-
-    return res.json({
-        message:"Invalid Share Link"
-    })
 })
 
 export default LinkRouter;

@@ -1,14 +1,14 @@
 import mongoose, {Schema} from "mongoose";
 
 const UserSchema = new Schema({
-    username: { type: String, unique: true },
-    password: String
+    username: { type: String, required: true, unique: true},
+    password: { type: String, required: true}
 });
 
 const ContentSchema = new Schema({
-    title: String,
-    link: String,
-    type: String,
+    title: { type: String, required: true},
+    link: { type: String, required: true},
+    type: { type: String, required: true},
     tags: [{type: mongoose.Types.ObjectId, ref:'Tag'}],
     userid: {type: mongoose.Types.ObjectId , ref: 'User', required: true}
 });
